@@ -6,6 +6,7 @@ import FmdGoodIcon from "@mui/icons-material/FmdGood";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import Button from "@mui/material/Button";
 
 const PlaceDetail = ({ data }) => {
 	return (
@@ -30,9 +31,19 @@ const PlaceDetail = ({ data }) => {
 						<AccountBalanceWalletIcon />
 						{data.price_level}
 					</p>
-					{data?.cuisine.map((tag: any) => (
-						<Chip key={tag.name} label={tag.name} />
-					))}
+					<div className="place-detail__tags">
+						{data?.cuisine.map((tag: any) => (
+							<Chip key={tag.name} label={tag.name} />
+						))}
+					</div>
+					<div className="place-detail__buttons">
+						<Button variant="text" color="primary" href={data.web_url} target="_blank">
+							Advisor
+						</Button>
+						<Button variant="text" color="primary" href={data.website} target="_blank">
+							website
+						</Button>
+					</div>
 				</div>
 			</Card>
 		</div>

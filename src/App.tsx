@@ -37,7 +37,12 @@ function App() {
 			<Header />
 			<div className="main">
 				<List places={places} isLoading={isLoading} />
-				<Map setCoords={setCoords} setBounds={setBounds} coordinates={coords} />
+				<Map
+					setCoords={setCoords}
+					setBounds={setBounds}
+					coordinates={coords}
+					places={places}
+				/>
 			</div>
 		</div>
 	);
