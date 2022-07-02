@@ -1,4 +1,41 @@
 .place-detail {
-	background-color: aquamarine;
 	padding: 1rem;
+	img {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+	}
+	&__content {
+		padding: 5px 1rem 1rem;
+		& > * {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+	&__address {
+		gap: 2rem;
+		& > :first-child {
+			color: rgb(255, 122, 122);
+		}
+	}
+	&__phone {
+		& > :first-child {
+			color: rgb(122, 201, 106);
+		}
+		a {
+			text-decoration: none;
+			color: rgb(99, 164, 186);
+		}
+	}
+	&__ranking {
+		& > :first-child {
+			color: rgb(106, 187, 201);
+		}
+	}
+	&__price {
+		& > :first-child {
+			color: rgb(201, 198, 106);
+		}
+	}
 }

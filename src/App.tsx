@@ -8,26 +8,35 @@ import "./index.css";
 function App() {
 	const [coords, setCoords] = useState<any>(null);
 	const [bounds, setBounds] = useState<any>({ ne: {}, sw: {} });
+	const [places, setPlaces] = useState([]);
+	const [isLoading, setIsLoading] = useState(false);
+
+	console.log(places);
+	console.log(places[0]);
 
 	useEffect(() => {
-		console.log(
-			navigator.geolocation.getCurrentPosition((pos) => {
-				setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
-			}),
-		);
+		setCoords({ lat: 11.940419, lng: 108.458313 });
 	}, []);
 
 	useEffect(() => {
-		getPlacesData(bounds.ne, bounds.sw).then((data) => {
-			console.log(data);
-		});
-	}, [coords, bounds]);
+		const timer = setTimeout(() => {
+			setIsLoading(true);
+			getPlacesData(bounds.ne, bounds.sw).then((data) => {
+				data && setPlaces(data);
+				setIsLoading(false);
+			});
+		}, 500);
+
+		return () => {
+			clearTimeout(timer);
+		};
+	}, [bounds]);
 
 	return (
 		<div className="App">
 			<Header />
 			<div className="main">
-				<List />
+				<List places={places} isLoading={isLoading} />
 				<Map setCoords={setCoords} setBounds={setBounds} coordinates={coords} />
 			</div>
 		</div>

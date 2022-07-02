@@ -1,12 +1,24 @@
 .list__container {
-	padding: 2rem 1rem;
+	overflow: hidden;
+}
+
+.list__content {
+	position: relative;
+	margin: 1rem;
+	height: 100%;
 }
 
 .list__items {
+	overflow: scroll;
+	height: 100%;
 	margin-top: 1rem;
-	height: 35rem;
-	overflow: auto;
 	display: flex;
 	flex-direction: column;
 	gap: 1rem;
+}
+
+.loader {
+	position: absolute;
+	margin: 3rem;
+	transform: translate(5rem, 7rem);
 }
