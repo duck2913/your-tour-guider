@@ -2,3 +2,10 @@ body {
 	margin: 0;
 	font-family: "Roboto";
 }
+
+.main {
+	height: calc(100vh - 64px);
+	display: grid;
+	grid-template-columns: 4fr 8fr;
+	overflow: hidden;
+}

@@ -6,8 +6,10 @@ import Typography from "@mui/material/Typography";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
+import { useState } from "react";
 
 export default function Header() {
+	const [searchTerm, setSearchTerm] = useState("");
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
@@ -26,6 +28,8 @@ export default function Header() {
 							<SearchIcon />
 						</SearchIconWrapper>
 						<StyledInputBase
+							value={searchTerm}
+							onChange={(e) => setSearchTerm(e.target.value)}
 							placeholder="Search…"
 							inputProps={{ "aria-label": "search" }}
 						/>

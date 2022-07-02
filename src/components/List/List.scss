@@ -1,0 +1,12 @@
+.list__container {
+	padding: 2rem 1rem;
+}
+
+.list__items {
+	margin-top: 1rem;
+	height: 35rem;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
