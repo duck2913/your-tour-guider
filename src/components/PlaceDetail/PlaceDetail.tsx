@@ -8,9 +8,13 @@ import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Button from "@mui/material/Button";
 
-const PlaceDetail = ({ data }) => {
+const PlaceDetail = ({ data, refProp, selected }) => {
+	if (selected) {
+		refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+	}
+
 	return (
-		<div className="place-detail">
+		<div className="place-detail" ref={refProp}>
 			<Card elevation={5}>
 				<img src={data?.photo?.images?.large?.url} alt="place" />
 				<div className="place-detail__content">

@@ -1,6 +1,7 @@
 .marker {
 	width: 3rem;
 	height: 5rem;
+	cursor: pointer;
 	&__title {
 		text-decoration: none;
 		text-overflow: ellipsis;

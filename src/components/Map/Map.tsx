@@ -2,27 +2,31 @@ import GoogleMapReact from "google-map-react";
 import Marker from "../Marker/Marker";
 import "./Map.scss";
 
-const Map = ({ setCoords, setBounds, coordinates, places }) => {
+const Map = ({ setCoords, setBounds, coordinates, places, setSelectedPlaceIdx }) => {
 	return (
 		<div className="map__container">
 			<GoogleMapReact
 				bootstrapURLKeys={{ key: "AIzaSyAMrJR4YazkuWANDBHczWxbchpgyYSPIPk" }}
 				defaultCenter={{ lat: 11.940419, lng: 108.458313 }}
 				center={coordinates}
-				defaultZoom={14}
+				defaultZoom={17}
 				margin={[50, 50, 50, 50]}
 				onChange={(e) => {
 					setCoords({ lat: e.center.lat, lng: e.center.lng });
 					setBounds({ ne: e.bounds.ne, sw: e.bounds.sw });
 				}}
 			>
-				{places.map((place) => (
-					<Marker
-						lat={+place.latitude}
-						lng={+place.longitude}
-						title={place.name}
-					></Marker>
-				))}
+				{places
+					?.filter((place: any) => place?.name && place?.photo?.images?.large?.url)
+					?.map((place: any, idx: number) => (
+						<Marker
+							lat={+place.latitude}
+							lng={+place.longitude}
+							title={place.name}
+							idx={idx}
+							setSelectedPlaceIdx={setSelectedPlaceIdx}
+						></Marker>
+					))}
 			</GoogleMapReact>
 		</div>
 	);

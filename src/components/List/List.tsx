@@ -4,13 +4,22 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import "./List.scss";
-import { useState } from "react";
+import { useState, useEffect, createRef } from "react";
 import PlaceDetail from "../PlaceDetail/PlaceDetail";
 import { PacmanLoader } from "react-spinners";
 
-const List = ({ places, isLoading }) => {
+const List = ({ places, isLoading, selectedPlaceIdx }) => {
 	const [type, setType] = useState("restaurants");
 	const [rating, setRating] = useState(0);
+	const [refs, setRefs] = useState<any>([]);
+
+	console.log("🚀 -> places", places);
+	console.log("🚀 -> refs", refs);
+
+	useEffect(() => {
+		const listOfRefs = places?.map((_, i) => createRef());
+		setRefs(listOfRefs);
+	}, [places]);
 
 	return (
 		<div className="list__container">
@@ -63,9 +72,17 @@ const List = ({ places, isLoading }) => {
 							?.filter(
 								(place: any) => place?.name && place?.photo?.images?.large?.url,
 							)
-							?.map((placeData: any, idx: number) => (
-								<PlaceDetail key={idx} data={placeData} />
-							))}
+							?.map((placeData: any, idx: number) => {
+								const selected = idx === selectedPlaceIdx;
+								return (
+									<PlaceDetail
+										key={idx}
+										data={placeData}
+										refProp={refs[idx]}
+										selected={selected}
+									/>
+								);
+							})}
 					</div>
 				)}
 			</div>

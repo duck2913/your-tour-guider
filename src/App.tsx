@@ -10,9 +10,7 @@ function App() {
 	const [bounds, setBounds] = useState<any>({ ne: {}, sw: {} });
 	const [places, setPlaces] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
-
-	console.log(places);
-	console.log(places[0]);
+	const [selectedPlaceIdx, setSelectedPlaceIdx] = useState(null);
 
 	useEffect(() => {
 		setCoords({ lat: 11.940419, lng: 108.458313 });
@@ -36,12 +34,13 @@ function App() {
 		<div className="App">
 			<Header />
 			<div className="main">
-				<List places={places} isLoading={isLoading} />
+				<List places={places} isLoading={isLoading} selectedPlaceIdx={selectedPlaceIdx} />
 				<Map
 					setCoords={setCoords}
 					setBounds={setBounds}
 					coordinates={coords}
 					places={places}
+					setSelectedPlaceIdx={setSelectedPlaceIdx}
 				/>
 			</div>
 		</div>
