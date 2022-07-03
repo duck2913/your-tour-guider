@@ -8,16 +8,11 @@ import { useState, useEffect, createRef } from "react";
 import PlaceDetail from "../PlaceDetail/PlaceDetail";
 import { PacmanLoader } from "react-spinners";
 
-const List = ({ places, isLoading, selectedPlaceIdx }) => {
-	const [type, setType] = useState("restaurants");
-	const [rating, setRating] = useState(0);
+const List = ({ places, isLoading, selectedPlaceIdx, setType, type, rating, setRating }) => {
 	const [refs, setRefs] = useState<any>([]);
 
-	console.log("🚀 -> places", places);
-	console.log("🚀 -> refs", refs);
-
 	useEffect(() => {
-		const listOfRefs = places?.map((_, i) => createRef());
+		const listOfRefs = places?.map(() => createRef());
 		setRefs(listOfRefs);
 	}, [places]);
 
@@ -68,21 +63,17 @@ const List = ({ places, isLoading, selectedPlaceIdx }) => {
 				)}
 				{!isLoading && (
 					<div className="list__items">
-						{places
-							?.filter(
-								(place: any) => place?.name && place?.photo?.images?.large?.url,
-							)
-							?.map((placeData: any, idx: number) => {
-								const selected = idx === selectedPlaceIdx;
-								return (
-									<PlaceDetail
-										key={idx}
-										data={placeData}
-										refProp={refs[idx]}
-										selected={selected}
-									/>
-								);
-							})}
+						{places?.map((placeData: any, idx: number) => {
+							const selected = idx === selectedPlaceIdx;
+							return (
+								<PlaceDetail
+									key={idx}
+									data={placeData}
+									refProp={refs[idx]}
+									selected={selected}
+								/>
+							);
+						})}
 					</div>
 				)}
 			</div>

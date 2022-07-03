@@ -5,9 +5,19 @@ import Typography from "@mui/material/Typography";
 import SearchIcon from "@mui/icons-material/Search";
 import { Search, SearchIconWrapper, StyledInputBase } from "./styles";
 import { useState } from "react";
+import { Autocomplete } from "@react-google-maps/api";
 
-export default function Header() {
+export default function Header({ setCoords }) {
 	const [searchTerm, setSearchTerm] = useState("");
+
+	const [autoComplete, setAutoComplete] = useState<any>(null);
+
+	function handleOnPlaceChange() {
+		const lat = autoComplete.getPlace().geometry.location.lat();
+		const lng = autoComplete.getPlace().geometry.location.lng();
+		setCoords({ lat, lng });
+	}
+
 	return (
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static">
@@ -21,17 +31,22 @@ export default function Header() {
 						TOUR BUDDY
 					</Typography>
 					<Typography variant="body1">Explore new places</Typography>
-					<Search>
-						<SearchIconWrapper>
-							<SearchIcon />
-						</SearchIconWrapper>
-						<StyledInputBase
-							value={searchTerm}
-							onChange={(e) => setSearchTerm(e.target.value)}
-							placeholder="Search…"
-							inputProps={{ "aria-label": "search" }}
-						/>
-					</Search>
+					<Autocomplete
+						onLoad={(autoC) => setAutoComplete(autoC)}
+						onPlaceChanged={handleOnPlaceChange}
+					>
+						<Search>
+							<SearchIconWrapper>
+								<SearchIcon />
+							</SearchIconWrapper>
+							<StyledInputBase
+								value={searchTerm}
+								onChange={(e) => setSearchTerm(e.target.value)}
+								placeholder="Search…"
+								inputProps={{ "aria-label": "search" }}
+							/>
+						</Search>
+					</Autocomplete>
 				</Toolbar>
 			</AppBar>
 		</Box>

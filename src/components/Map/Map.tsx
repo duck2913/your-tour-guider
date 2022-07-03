@@ -2,11 +2,11 @@ import GoogleMapReact from "google-map-react";
 import Marker from "../Marker/Marker";
 import "./Map.scss";
 
-const Map = ({ setCoords, setBounds, coordinates, places, setSelectedPlaceIdx }) => {
+const Map = ({ setCoords, setBounds, coordinates, places, setSelectedPlaceIdx, rating }) => {
 	return (
 		<div className="map__container">
 			<GoogleMapReact
-				bootstrapURLKeys={{ key: "AIzaSyAMrJR4YazkuWANDBHczWxbchpgyYSPIPk" }}
+				bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY as string }}
 				defaultCenter={{ lat: 11.940419, lng: 108.458313 }}
 				center={coordinates}
 				defaultZoom={17}
@@ -16,17 +16,16 @@ const Map = ({ setCoords, setBounds, coordinates, places, setSelectedPlaceIdx })
 					setBounds({ ne: e.bounds.ne, sw: e.bounds.sw });
 				}}
 			>
-				{places
-					?.filter((place: any) => place?.name && place?.photo?.images?.large?.url)
-					?.map((place: any, idx: number) => (
-						<Marker
-							lat={+place.latitude}
-							lng={+place.longitude}
-							title={place.name}
-							idx={idx}
-							setSelectedPlaceIdx={setSelectedPlaceIdx}
-						></Marker>
-					))}
+				{places?.map((place: any, idx: number) => (
+					<Marker
+						key={idx}
+						lat={+place.latitude}
+						lng={+place.longitude}
+						title={place.name}
+						idx={idx}
+						setSelectedPlaceIdx={setSelectedPlaceIdx}
+					></Marker>
+				))}
 			</GoogleMapReact>
 		</div>
 	);
